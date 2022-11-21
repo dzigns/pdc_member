@@ -12,20 +12,15 @@ class Members extends Component {
         memberQuery: ''
       };
       updateMemberQuery = event => {
-          this.setState({memberQuery: event.target.value});
+          var mq = event.target.value.toLowerCase();
+          this.setState({memberQuery: mq});
+          console.log("This MemberQuery:",this.state.memberQuery)
       }
       componentDidMount() {
         fetch(`${API_ADDRESS}`)
         .then(response => response.json())
         .then(json => this.setState({ data: json.results }))
         .catch(error => alert(error.message));
-      }
-
-      handleKeyPress = event => {
-        if (event.key === 'Enter')
-        {
-            this.searchArtist();
-        }
       }
      
       render() {
@@ -49,7 +44,7 @@ class Members extends Component {
                        <Link to='/member' state={{member}} > 
                         <div>
                           <article className="card small"  key={id}>
-                          <img src={member.picture.thumbnail} alt="profile" className='profilePic' />
+                          <img src={member.picture.large} alt="profile" className='profilePic' />
                             <footer> <p className='smallText'>{member.name.first} {member.name.last}</p><span className='badgeButton lightText' >Age: {member.dob.age}</span></footer>
                           </article>
                         </div>
